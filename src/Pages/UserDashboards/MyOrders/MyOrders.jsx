@@ -2,13 +2,14 @@ import React, { useContext } from 'react'
 import { useAxiosSecure } from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 export const MyOrders = () => {
 
   const axiosSecure = useAxiosSecure();
 
   const { user } = useAuth();
-  const { data: orders = [] } = useQuery({
+  const { data: orders = [], refetch } = useQuery({
     queryKey: ['orders', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/orders/${user?.email}`);
@@ -33,6 +34,20 @@ export const MyOrders = () => {
   }
 
 
+  const handleOrderCancel = (order) =>{
+    const cancelInfo = {
+      isCanceled: true
+    }
+
+    axiosSecure.patch(`/orders/${order._id}`, cancelInfo)
+    .then(res=>{
+      refetch()
+      console.log(res.data)
+      Swal.fire("Order Cancelled!", "", "success")
+    })
+    .catch(error=>console.log(error))
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="table table-xs">
@@ -56,7 +71,7 @@ export const MyOrders = () => {
                 <td>{order?.isCanceled ? "" : <span>{order.orderStatus}</span>}</td>
                 <td>{order?.isCanceled ? "" : <span>{order.paymentStatus}</span>}</td>
                 <td>{order?.isCanceled ? <span>Order Canceled</span> : <div>{
-                  order?.orderStatus === "pending" ? <p><button className='btn btn-sm'>cancel</button>{
+                  order?.orderStatus === "pending" ? <p><button onClick={()=>handleOrderCancel(order)} className='btn btn-sm'>cancel</button>{
                     order?.paymentStatus === "unpaid" ? <button onClick={()=>handlePayment(order)} className='btn btn-sm'>pay</button> : ''
                   }</p> : ''
                 }</div>}</td>
