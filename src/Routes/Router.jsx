@@ -16,6 +16,8 @@ import PrivateRoute from './PrivateRoute';
 import { AddBooks } from '../Pages/AddBooks/AddBooks';
 import { MyAddedBooks } from '../Pages/LibrarianDashBoard/MyAddedBooks/MyAddedBooks';
 import { BookDetails } from '../Pages/BookDetails/BookDetails';
+import { PaymentSuccess } from '../Pages/Payment/PaymentSuccess';
+import { PaymentCancelled } from '../Pages/Payment/PaymentCancelled';
 
 export const router = createBrowserRouter([
     {
@@ -82,6 +84,14 @@ export const router = createBrowserRouter([
             {
                 path: 'my-profile',
                 element: <Profile></Profile>
+            },
+            {
+                path: "payment-success",
+                element: <PaymentSuccess></PaymentSuccess>
+            },
+            {
+                path: "payment-cancelled",
+                element: <PaymentCancelled></PaymentCancelled>
             }
         ]
     }

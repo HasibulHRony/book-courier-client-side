@@ -23,6 +23,7 @@ export const AddBooks = () => {
                     bookName: data.BookName,
                     bookDescription: data.description,
                     bookPhoto: res.data.data.url,
+                    bookPrice: data.price,
                     authorName: data.AuthorName,
                     publicationStatus: data.publicationStatus,
                     librarianEmail: user.email,

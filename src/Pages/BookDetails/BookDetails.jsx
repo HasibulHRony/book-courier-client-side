@@ -27,6 +27,7 @@ export const BookDetails = () => {
     const {
         bookName,
         authorName,
+        bookPrice,
         bookDescription,
         bookPhoto,
         publicationStatus,
@@ -50,6 +51,7 @@ export const BookDetails = () => {
             address: e.target.address.value,
             bookId: _id,
             bookName: bookName,
+            bookPrice: bookPrice,
             orderStatus: "pending",
             paymentStatus: "unpaid",
         }

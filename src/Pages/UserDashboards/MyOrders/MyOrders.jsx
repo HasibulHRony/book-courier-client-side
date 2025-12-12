@@ -18,6 +18,21 @@ export const MyOrders = () => {
 
   console.log(orders)
 
+  const handlePayment = async (order) => {
+    const paymentInfo = {
+      price: order?.bookPrice,
+      bookId: order.bookId,
+      customerEmail: order.customerEmail,
+      orderName: order.bookName,
+      orderId: order._id
+    }
+    const res = await axiosSecure.post('/confirming-payment-session', paymentInfo);
+
+    console.log(res.data.url);
+    window.location.assign(res.data.url);
+  }
+
+
   return (
     <div className="overflow-x-auto">
       <table className="table table-xs">
@@ -40,9 +55,9 @@ export const MyOrders = () => {
                 <td>{order?.isCanceled ? "" : <span>{new Date(order?.createdAt).toLocaleDateString()}</span>}</td>
                 <td>{order?.isCanceled ? "" : <span>{order.orderStatus}</span>}</td>
                 <td>{order?.isCanceled ? "" : <span>{order.paymentStatus}</span>}</td>
-                <td>{order?.isCanceled ? <span>Order Canceled</span> :<div>{
+                <td>{order?.isCanceled ? <span>Order Canceled</span> : <div>{
                   order?.orderStatus === "pending" ? <p><button className='btn btn-sm'>cancel</button>{
-                    order?.paymentStatus === "unpaid" ? <button className='btn btn-sm'>pay</button> : ''
+                    order?.paymentStatus === "unpaid" ? <button onClick={()=>handlePayment(order)} className='btn btn-sm'>pay</button> : ''
                   }</p> : ''
                 }</div>}</td>
               </tr>
