@@ -18,6 +18,7 @@ import { MyAddedBooks } from '../Pages/LibrarianDashBoard/MyAddedBooks/MyAddedBo
 import { BookDetails } from '../Pages/BookDetails/BookDetails';
 import { PaymentSuccess } from '../Pages/Payment/PaymentSuccess';
 import { PaymentCancelled } from '../Pages/Payment/PaymentCancelled';
+import { EditBook } from '../Pages/LibrarianDashBoard/MyAddedBooks/EditBook';
 
 export const router = createBrowserRouter([
     {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
             {
                 path: "payment-cancelled",
                 element: <PaymentCancelled></PaymentCancelled>
+            },
+            {
+                path: 'edit-book/:id',
+                element: <EditBook></EditBook>
             }
         ]
     }
