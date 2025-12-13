@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
+import React, { useState } from 'react'
 import { useAxiosSecure } from '../../../Hooks/useAxiosSecure';
 import { Loading } from '../../Loading/Loading';
 import { isCancel } from 'axios';
@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 
 export const CustomersOrders = () => {
 
+
+    const [statusValues, setStatusValues] = useState({});
     const axiosSecure = useAxiosSecure()
 
     const { data: orders = [], isLoading, refetch } = useQuery({
@@ -17,9 +19,30 @@ export const CustomersOrders = () => {
         }
     })
 
-    const orderStatusChange = (order) =>{
-        
-    }
+    const handleStatusChange = (orderId, value) => {
+        setStatusValues((prev) => ({
+            ...prev,
+            [orderId]: value,
+        }));
+    };
+
+
+    const handleUpdateStatus = async (orderId) => {
+        const status = statusValues[orderId];
+
+        if (!status) {
+            return Swal.fire("Please select a status first");
+        }
+
+        const res = await axiosSecure.patch(`/orders/${orderId}`, {
+            orderStatus: status,
+        });
+
+        if (res.data.modifiedCount > 0) {
+            Swal.fire("Updated!", "Order status updated", "success");
+            refetch();
+        }
+    };
 
     const handleCancelOrder = (order) => {
 
@@ -45,6 +68,7 @@ export const CustomersOrders = () => {
 
     return (
         <div>
+            <h1 className='my-5 md:my-8 text-center text-2xl font-bold'>All Orders Of Customers</h1>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
@@ -54,6 +78,7 @@ export const CustomersOrders = () => {
                             <th>BookName</th>
                             <th>Status</th>
                             <th>Action</th>
+                            <th>Cancel</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,13 +87,26 @@ export const CustomersOrders = () => {
                                 <tr key={index}>
                                     <th>{index + 1}</th>
                                     <td>{order?.bookName}</td>
-                                    <td>{order?.isCanceled ? "Canceled" : <select defaultValue="Pick a color" name='publication_status' className="select">
-                                        <option disabled={true}>publication</option>
-                                        <option>Pending</option>
-                                        <option>Shifted</option>
-                                        <option>Delivered</option>
+                                    <td>{order?.isCanceled ? "Canceled" : <select
+                                        className="select select-bordered select-sm"
+                                        value={
+                                            statusValues[order._id] || order.publicationStatus
+                                        }
+                                        onChange={(e) =>
+                                            handleStatusChange(order._id, e.target.value)
+                                        }
+                                    >
+                                        <option value="Pending">Pending</option>
+                                        <option value="Shifted">Shifted</option>
+                                        <option value="Delivered">Delivered</option>
                                     </select>}</td>
-                                    <td>{order?.isCanceled ? <span>Canceled</span> : <div> <button onClick={()=>handleCancelOrder(order)} className='btn btn-sm'>Cancel</button></div>}</td>
+                                    <td>{order?.paymentStatus !== "unpaid" ? <span>wait until pay.</span> : <div> <button
+                                        onClick={() => handleUpdateStatus(order._id)}
+                                        className="btn btn-sm ml-2"
+                                    >
+                                        Update
+                                    </button></div>}</td>
+                                    <td>{order?.isCanceled ? <span>Canceled</span> :<button onClick={() => handleCancelOrder(order)} className='btn btn-sm'>Cancel</button>}</td>
                                 </tr>
                             )
                         }

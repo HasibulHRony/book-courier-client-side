@@ -1,16 +1,31 @@
 import React from 'react'
 import { useAuth } from '../../../Hooks/useAuth'
 import { useLocation, useNavigate } from 'react-router'
+import { useAxiosSecure } from '../../../Hooks/useAxiosSecure'
 
 export const GoogleLogIn = () => {
 
-    const { loginWithGoogle } = useAuth()
+    const { loginWithGoogle, updateProfileInfo } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+    const axiosSecure = useAxiosSecure()
 
     const handleGoogleSignIn = () => {
         loginWithGoogle()
             .then(res => {
+
+                 const userInfo = {
+                    email: res.user.email,
+                    displayName: res.user.displayName,
+                    photoURL: res.user.photoURL
+                }
+
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log('user data has been stored', res.data)
+                        navigate(location.state || '/');
+                    })
+
                 navigate(location?.state || '/')
                 updateProfileInfo(userProfile)
                     .then(() => console.log('user profile updated successfully!'))

@@ -2,13 +2,16 @@ import React from 'react'
 import { useAuth } from '../../Hooks/useAuth'
 import { GoogleLogIn } from './SocialLogIn/GoogleLogIn';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 import { Logo } from '../../Components/Logo/Logo';
+import { useAxiosSecure } from '../../Hooks/useAxiosSecure';
 
 export const Registration = () => {
   const { register, handleSubmit, formState: { errors }, } = useForm()
   const { createUserByEmailPassWord, updateProfileInfo } = useAuth();
+  const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate()
 
   const handleRegistration = (data) => {
     const profilePhoto = data.photo[0]
@@ -21,18 +24,37 @@ export const Registration = () => {
 
         axios.post(image_url, uploadedData)
           .then(res => {
+            const photoURL = res.data.data.url;
+            const userInfo = {
+              email: data.email,
+              displayName: data.name,
+              photoURL: photoURL
+            }
+            console.log(photoURL)
+            axiosSecure.post('/users', userInfo)
+              .then(res => {
+                if (res.data.insertedId) {
+                  console.log('user saved in the database');
+                }
+              })
+              .catch(error=>console.log(error))
+
+
             const userProfile = {
               displayName: data.name,
               photoURL: res.data.data.url
             }
 
             updateProfileInfo(userProfile)
-            .then(()=>console.log('user profile updated successfully!'))
-            .catch(error=>console.log(error))
+              .then(() =>{
+                navigate('/')
+                console.log('user profile updated successfully!')
+              })
+              .catch(error => console.log(error))
           })
 
       })
-      .catch(error=>console.log(error))
+      .catch(error => console.log(error))
   }
 
   return (
