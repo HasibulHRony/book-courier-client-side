@@ -19,6 +19,7 @@ import { BookDetails } from '../Pages/BookDetails/BookDetails';
 import { PaymentSuccess } from '../Pages/Payment/PaymentSuccess';
 import { PaymentCancelled } from '../Pages/Payment/PaymentCancelled';
 import { EditBook } from '../Pages/LibrarianDashBoard/MyAddedBooks/EditBook';
+import { CustomersOrders } from '../Pages/LibrarianDashBoard/CustomersOrders/CustomersOrders';
 
 export const router = createBrowserRouter([
     {
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
             {
                 path: 'edit-book/:id',
                 element: <EditBook></EditBook>
+            },
+            {
+                path: 'customers-orders',
+                element: <CustomersOrders></CustomersOrders>
             }
         ]
     }

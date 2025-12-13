@@ -11,6 +11,7 @@ export const DashBoardLayouts = () => {
         <li><NavLink to="/dashboard/add-books">Add Books</NavLink></li>
         <li><NavLink to="/dashboard/my-added-books">My added Books</NavLink></li>
         <li><NavLink to="/dashboard/my-profile">My Profile</NavLink></li>
+        <li><NavLink to="/dashboard/customers-orders">Customers Orders</NavLink></li>
     </>
     return (
         <div className="drawer lg:drawer-open">
