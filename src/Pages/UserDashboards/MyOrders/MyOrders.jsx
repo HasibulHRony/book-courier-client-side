@@ -17,7 +17,6 @@ export const MyOrders = () => {
     }
   })
 
-  console.log(orders)
 
   const handlePayment = async (order) => {
     const paymentInfo = {
@@ -29,7 +28,6 @@ export const MyOrders = () => {
     }
     const res = await axiosSecure.post('/confirming-payment-session', paymentInfo);
 
-    console.log(res.data.url);
     window.location.assign(res.data.url);
   }
 
@@ -42,7 +40,6 @@ export const MyOrders = () => {
     axiosSecure.patch(`/orders/${order._id}`, cancelInfo)
     .then(res=>{
       refetch()
-      console.log(res.data)
       Swal.fire("Order Cancelled!", "", "success")
     })
     .catch(error=>console.log(error))

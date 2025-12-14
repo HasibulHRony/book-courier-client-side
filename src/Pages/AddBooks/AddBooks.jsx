@@ -43,7 +43,6 @@ export const AddBooks = () => {
                             .then(res => {
                                 if (res.data.insertedId) {
 
-                                    console.log("book saved", res.data)
                                     Swal.fire({
                                         title: "Added!",
                                         text: "Your book has been Added.",

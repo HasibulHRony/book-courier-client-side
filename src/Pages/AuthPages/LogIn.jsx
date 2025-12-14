@@ -14,7 +14,6 @@ export const LogIn = () => {
   const handleLogInByPassword = (data) => {
     loginByPassword(data.email, data.password)
       .then(result => {
-        console.log(result.user)
         navigate(location?.state || '/')
       })
       .catch(error => {

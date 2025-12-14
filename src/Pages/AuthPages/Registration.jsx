@@ -30,11 +30,9 @@ export const Registration = () => {
               displayName: data.name,
               photoURL: photoURL
             }
-            console.log(photoURL)
             axiosSecure.post('/users', userInfo)
               .then(res => {
                 if (res.data.insertedId) {
-                  console.log('user saved in the database');
                 }
               })
               .catch(error=>console.log(error))

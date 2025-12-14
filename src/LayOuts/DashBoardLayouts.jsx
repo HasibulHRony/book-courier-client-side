@@ -7,7 +7,7 @@ import { useRole } from '../Hooks/useRole'
 export const DashBoardLayouts = () => {
 
     const { role } = useRole()
-    console.log(role)
+   
     const links = <>
         <li><NavLink to={"/"}><IoMdArrowRoundBack />Go Home</NavLink></li>
         <li><NavLink to="/dashboard">Dashboard Home</NavLink></li>

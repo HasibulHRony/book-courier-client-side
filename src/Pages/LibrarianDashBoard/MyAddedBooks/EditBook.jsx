@@ -48,14 +48,12 @@ export const EditBook = () => {
       librarianEmail: e.target.librarian_email.value,
       createdAt: createdAt
     }
-    console.log(editedInfo)
-
+    
     axiosSecure.patch(`/books/${id}`, editedInfo)
     .then(data=>{
       refetch()
       Swal.fire("Updated Successfully", "", "success")
-      console.log(data)
-
+      
     })
     .catch(error=>console.log(error))
 
