@@ -20,6 +20,7 @@ import { PaymentSuccess } from '../Pages/Payment/PaymentSuccess';
 import { PaymentCancelled } from '../Pages/Payment/PaymentCancelled';
 import { EditBook } from '../Pages/LibrarianDashBoard/MyAddedBooks/EditBook';
 import { CustomersOrders } from '../Pages/LibrarianDashBoard/CustomersOrders/CustomersOrders';
+import { AllUsers } from '../Pages/AllUsers/AllUsers';
 
 export const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ export const router = createBrowserRouter([
             {
                 path: 'customers-orders',
                 element: <CustomersOrders></CustomersOrders>
+            },
+            {
+                path: 'all-users',
+                element: <AllUsers></AllUsers>
             }
         ]
     }
