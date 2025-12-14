@@ -4,3 +4,5 @@
   -----one can purchase book from anywhere.
 
 ***I have simply use tailwind, daisyUi, sweetalert2, react-icon and React. firebase for auth. Strip for payment integration.
+
+***ImageBB for uploading image
