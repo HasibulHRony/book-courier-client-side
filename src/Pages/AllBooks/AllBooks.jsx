@@ -23,7 +23,7 @@ export const AllBooks = () => {
     <div>
       <h1 className='text-center text-2xl md:text-3xl font-bold my-4'>AllBooks: {data.length}</h1>
       <div className='my-2'>
-        <p className='font-bold my-1'>search text: {searchText}</p>
+        <p className='font-bold my-1'>search books: {searchText}</p>
         <label className="input">
           <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g

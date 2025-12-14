@@ -23,17 +23,14 @@ export const Banner = () => {
         >
             <div>
                 <img src={tourTravel} alt="Slide 1" />
-                <p className="legend">Nature Landscape</p>
             </div>
 
             <div>
                 <img src={archiTecture} alt="Slide 2" />
-                <p className="legend">Beautiful Mountain</p>
             </div>
 
             <div>
                 <img src={abstractBrochure} alt="Slide 3" />
-                <p className="legend">City Lights</p>
             </div>
         </Carousel>
     )
