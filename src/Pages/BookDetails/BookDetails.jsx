@@ -36,7 +36,7 @@ export const BookDetails = () => {
         createdAt,
     } = data;
 
-
+    console.log(bookPrice)
 
     const handleOrderModal = () => {
         orderModelRef.current.showModal()
@@ -52,7 +52,7 @@ export const BookDetails = () => {
             address: e.target.address.value,
             bookId: _id,
             bookName: bookName,
-            bookPrice: bookPrice,
+            bookPrice: Number(bookPrice),
             orderStatus: "pending",
             paymentStatus: "unpaid",
         }
@@ -127,6 +127,8 @@ export const BookDetails = () => {
                                         <input defaultValue={user?.email} name='customerEmail' readOnly type="email" className="input" />
                                         <label className="label">Name</label>
                                         <input type="text" name='customerName' className="input" readOnly defaultValue={user?.displayName} />
+                                        <label className="label">Book Price</label>
+                                        <input type="text" name='book_price' className="input" readOnly defaultValue={bookPrice} />
                                         <label className="label">address</label>
                                         <input type="text" name='address' className="input" placeholder='Enter Address' />
                                         <label className="label">Phone Number</label>

@@ -103,6 +103,7 @@ export const AllUsers = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th>Changing Status</th>
                         </tr>
@@ -111,12 +112,13 @@ export const AllUsers = () => {
 
                         {
                             users.map((eachUser, index) => <tr key={index}>
-                                <th>{index+1}</th>
-                                <td>{eachUser.displayName}</td>
-                                <td>{eachUser.role}</td>
+                                <th>{index + 1}</th>
+                                <td>{eachUser?.displayName}</td>
+                                <td>{eachUser?.email}</td>
+                                <td>{eachUser?.role}</td>
                                 <td>
-                                    {eachUser.role === "user" && <div><button onClick={() => handleMakeLibrarian(eachUser)} className='btn btn-sm mr-2'>Make Librarian</button><button onClick={()=>handleMakeAdmin(eachUser)} className='btn btn-sm'>Make as Admin</button></div>}
-                                    {eachUser.role === "librarian" && <div><button className='btn btn-sm mr-2' onClick={()=>handleMakeUser(eachUser)}>Make as user</button><button onClick={()=>handleMakeAdmin(eachUser)} className='btn btn-sm'>Make as Admin</button></div>}
+                                    {eachUser.role === "user" && <div><button onClick={() => handleMakeLibrarian(eachUser)} className='btn btn-sm mr-2'>Make Librarian</button><button onClick={() => handleMakeAdmin(eachUser)} className='btn btn-sm'>Make as Admin</button></div>}
+                                    {eachUser.role === "librarian" && <div><button className='btn btn-sm mr-2' onClick={() => handleMakeUser(eachUser)}>Make as user</button><button onClick={() => handleMakeAdmin(eachUser)} className='btn btn-sm'>Make as Admin</button></div>}
                                     {eachUser.role === "admin" && <span>Added as admin</span>}
 
                                 </td>

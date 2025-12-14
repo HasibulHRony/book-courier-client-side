@@ -2,17 +2,40 @@ import React from 'react'
 import { GoSidebarCollapse } from 'react-icons/go'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { NavLink, Outlet } from 'react-router'
+import { useRole } from '../Hooks/useRole'
 
 export const DashBoardLayouts = () => {
+
+    const { role } = useRole()
+    console.log(role)
     const links = <>
         <li><NavLink to={"/"}><IoMdArrowRoundBack />Go Home</NavLink></li>
         <li><NavLink to="/dashboard">Dashboard Home</NavLink></li>
-        <li><NavLink to="/dashboard/my-orders">My Orders</NavLink></li>
-        <li><NavLink to="/dashboard/add-books">Add Books</NavLink></li>
-        <li><NavLink to="/dashboard/my-added-books">My added Books</NavLink></li>
+
+        {
+
+            role === "user" && <>
+                <li><NavLink to="/dashboard/my-orders">My Orders</NavLink></li>
+            </>
+
+        }
+
         <li><NavLink to="/dashboard/my-profile">My Profile</NavLink></li>
-        <li><NavLink to="/dashboard/customers-orders">Customers Orders</NavLink></li>
-        <li><NavLink to="/dashboard/all-users">All Users</NavLink></li>
+        {
+            role === "librarian" && <>
+                <li><NavLink to="/dashboard/add-books">Add Books</NavLink></li>
+                <li><NavLink to="/dashboard/my-added-books">My added Books</NavLink></li>
+                <li><NavLink to="/dashboard/customers-orders">Customers Orders</NavLink></li>
+            </>
+        }
+
+
+        {
+            role === "admin" && <>
+                <li><NavLink to="/dashboard/all-users">All Users</NavLink></li>
+                <li><NavLink to="/dashboard/manage-books">ManageBooks</NavLink></li>
+            </>
+        }
     </>
     return (
         <div className="drawer lg:drawer-open">

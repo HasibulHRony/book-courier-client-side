@@ -4,7 +4,6 @@ import App from '../App';
 import { MainLayouts } from '../LayOuts/MainLayouts';
 import { HomePage } from '../Pages/Home/HomePage/HomePage';
 import { AllBooks } from '../Pages/AllBooks/AllBooks';
-import { RequestDelivery } from '../Pages/UserLogInPages/RequestDelivery/RequestDelivery';
 import { AuthLayouts } from '../LayOuts/AuthLayouts';
 import { DashBoardLayouts } from '../LayOuts/DashBoardLayouts';
 import { LogIn } from '../Pages/AuthPages/LogIn';
@@ -21,6 +20,9 @@ import { PaymentCancelled } from '../Pages/Payment/PaymentCancelled';
 import { EditBook } from '../Pages/LibrarianDashBoard/MyAddedBooks/EditBook';
 import { CustomersOrders } from '../Pages/LibrarianDashBoard/CustomersOrders/CustomersOrders';
 import { AllUsers } from '../Pages/AllUsers/AllUsers';
+import { ManageBooks } from '../Pages/ManageBooks/ManageBooks';
+import { AdminRoute } from './AdminRoute';
+import { LibrarianRoute } from './LibrarianRoute';
 
 export const router = createBrowserRouter([
     {
@@ -34,10 +36,6 @@ export const router = createBrowserRouter([
             {
                 path: 'all-books',
                 element: <AllBooks></AllBooks>
-            },
-            {
-                path: 'request-delivery',
-                element: <RequestDelivery></RequestDelivery>
             },
             {
                 path: 'profile',
@@ -78,11 +76,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'add-books',
-                element: <AddBooks></AddBooks>
+                element: <LibrarianRoute><AddBooks></AddBooks></LibrarianRoute>
             },
             {
                 path: 'my-added-books',
-                element: <MyAddedBooks></MyAddedBooks>
+                element: <LibrarianRoute><MyAddedBooks></MyAddedBooks></LibrarianRoute>
             },
             {
                 path: 'my-profile',
@@ -98,15 +96,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'edit-book/:id',
-                element: <EditBook></EditBook>
+                element: <LibrarianRoute><EditBook></EditBook></LibrarianRoute>
             },
             {
                 path: 'customers-orders',
-                element: <CustomersOrders></CustomersOrders>
+                element: <LibrarianRoute><CustomersOrders></CustomersOrders></LibrarianRoute>
             },
             {
                 path: 'all-users',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: 'manage-books',
+                element: <AdminRoute><ManageBooks></ManageBooks></AdminRoute>
             }
         ]
     }

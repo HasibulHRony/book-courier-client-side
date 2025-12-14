@@ -7,7 +7,6 @@ export const NavBar = () => {
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/all-books'}>All Books</NavLink></li>
-        <li><NavLink to={'/request-delivery'}>Request Delivery</NavLink></li>
         <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
         <li><NavLink to={'/profile'}>My Profile</NavLink></li>
         <li><NavLink to={'/auth/login'}>LogIn</NavLink></li>
